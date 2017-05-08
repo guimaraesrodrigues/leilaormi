@@ -8,6 +8,8 @@ package cliente;
 import java.rmi.RemoteException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import rmi.InterfaceCli;
+import rmi.InterfaceServ;
 
 public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
 

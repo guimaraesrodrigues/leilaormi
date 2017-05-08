@@ -7,6 +7,7 @@ package servidor;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import rmi.InterfaceCli;
+import rmi.InterfaceServ;
 
 public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
 
