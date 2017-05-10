@@ -22,6 +22,8 @@ public class Cliente {
             InterfaceCli client = new CliImpl(server);
             //client.echo("echo - cliente");
             //server.chamar("chamar - cliente", client);
+            TelaLogin login = new TelaLogin(client);
+            
         }
         catch (Exception ex) {
             System.out.println("Cliente main:");
