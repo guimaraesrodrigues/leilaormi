@@ -14,11 +14,17 @@ import rmi.InterfaceServ;
 public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
 
     InterfaceServ server;
+
     
+    String nome;    
     public CliImpl(InterfaceServ server) throws RemoteException
-    {
+    {   
         this.server = server;
         server.chamar("cli hello", this);
+    }
+    
+    public void setNome(String nome) {
+        this.nome = nome;
     }
     
     public void echo(String s) throws RemoteException{
