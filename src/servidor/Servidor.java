@@ -13,7 +13,6 @@ public class Servidor extends Thread{
     
     public void run() {
         
-        
         try {
             Registry referenciaServicoNomes = LocateRegistry.createRegistry(1099);
             referenciaServicoNomes.bind("Servidor", new ServImpl());
