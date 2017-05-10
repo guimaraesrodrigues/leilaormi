@@ -7,13 +7,19 @@ package cliente;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import rmi.*;
 /**
  *
  * @author a1609580
  */
-public class NovoProduto extends javax.swing.JFrame {
+public class TelaNovoProduto extends javax.swing.JFrame {
+
+    private InterfaceServ server;
+    private InterfaceCli cliente;
     
-    public NovoProduto() {
+    public TelaNovoProduto(InterfaceServ server, InterfaceCli cliente) {
+        this.server = server;
+        this.cliente = cliente;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         initComponents();
@@ -122,16 +128,16 @@ public class NovoProduto extends javax.swing.JFrame {
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))))
             .addGroup(layout.createSequentialGroup()
-                .addGap(101, 101, 101)
+                .addGap(121, 121, 121)
                 .addComponent(jLabel5)
-                .addGap(0, 110, Short.MAX_VALUE))
+                .addGap(0, 140, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(11, 11, 11)
+                .addGap(26, 26, 26)
                 .addComponent(jLabel5)
-                .addGap(33, 33, 33)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -166,15 +172,17 @@ public class NovoProduto extends javax.swing.JFrame {
     }//GEN-LAST:event_tempoActionPerformed
 
     private void botaoOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoOKActionPerformed
-        Produto novo_produto = new Produto();
+        try{
+            
+            server.cadastrarLeilao("colocar cod aqui", prod.getText(), descricao.getText(),
+                Float.parseFloat(valor.getText()), Float.parseFloat(tempo.getText()), cliente);
+            
+        }catch (Exception ex) {
+            System.out.println("Erro ao cadatrar o produto!");
+            ex.printStackTrace();
+        }       
         
-        novo_produto.setNome(prod.getText());
-        novo_produto.setDescricao(descricao.getText());
-        novo_produto.setValor(Float.parseFloat(valor.getText()));
-        novo_produto.setTempofinal(Float.parseFloat(tempo.getText()));
         //novo_produto.setCodigo(""+processo.getPorta_usuario()+""+processo.getContador_produtos());
-        novo_produto.setAtivo(true);
-        
         
         descricao.setText("");
         prod.setText("");

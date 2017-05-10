@@ -22,6 +22,7 @@ public class Cliente {
             InterfaceCli client = new CliImpl(server);
             //client.echo("echo - cliente");
             //server.chamar("chamar - cliente", client);
+            new TelaNovoProduto(server, client);
         }
         catch (Exception ex) {
             System.out.println("Cliente main:");
