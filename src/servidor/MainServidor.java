@@ -5,13 +5,26 @@
  */
 package servidor;
 
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+
 /**
  *
  * @author rodrigo
  */
 public class MainServidor {
     public static void main(String[] args) {
+        try {
+            Registry referenciaServicoNomes = LocateRegistry.createRegistry(1099);
+            referenciaServicoNomes.bind("Servidor", new ServImpl());
+            System.out.println("Server Ready!");
+            
+        } catch (Exception ex) {
+            System.out.println("Hello World Server main: ");
+            ex.printStackTrace();
+        }
+        
         new TelaServidor();
-        new Servidor().run();        
+          
     }
 }
