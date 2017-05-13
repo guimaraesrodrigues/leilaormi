@@ -5,14 +5,14 @@
  */
 package rmi;
 
+import servidor.Leilao;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import servidor.Leilao;
 
 
 public interface InterfaceServ extends Remote  {
     public void chamar(String nome, InterfaceCli cliente)throws RemoteException;
     public void cadastrarLeilao(String cod_produto, String nome_produto, String descricao, float preco, float tempo, InterfaceCli cliente) throws RemoteException;
-    //public ArrayList<Leilao> leiloes_ativos();
+    public ArrayList<Leilao> leiloes_ativos() throws RemoteException;
 }

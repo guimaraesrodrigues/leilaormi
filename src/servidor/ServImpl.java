@@ -33,9 +33,9 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
         }
         
     }
-    /*
-    public ArrayList<Leilao> leiloes_ativos() {
+    
+    public ArrayList<Leilao> leiloes_ativos() throws RemoteException {
          return this.lista_leiloes;
-    }*/
+    }
     
 }

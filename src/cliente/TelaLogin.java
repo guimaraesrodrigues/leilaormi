@@ -21,11 +21,14 @@ public class TelaLogin extends javax.swing.JFrame {
      * Creates new form TelaLogin
      */
     InterfaceCli client;
+    InterfaceServ server;
+    
     String nome;
     char[] senha;
     
-    public TelaLogin(InterfaceCli client) {
+    public TelaLogin(InterfaceServ server, InterfaceCli client) {
         this.client = client;
+        this.server = server;
         initComponents();
         this.setVisible(true);
     }
@@ -111,6 +114,7 @@ public class TelaLogin extends javax.swing.JFrame {
         this.nome = campoUsuario.getText();
         try {
             client.setNome(nome);
+            TelaPrincipal tp = new TelaPrincipal(server,client);
         } catch (RemoteException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
