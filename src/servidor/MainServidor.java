@@ -13,18 +13,17 @@ import java.rmi.registry.Registry;
  * @author rodrigo
  */
 public class MainServidor {
-    public static void main(String[] args) {
+    public static void main(String[] args) {        
         try {
+            ServImpl servImpl = new ServImpl();
             Registry referenciaServicoNomes = LocateRegistry.createRegistry(1099);
-            referenciaServicoNomes.bind("Servidor", new ServImpl());
+            referenciaServicoNomes.bind("Servidor", servImpl);
+            new TelaServidor(servImpl);
             System.out.println("Server Ready!");
             
         } catch (Exception ex) {
             System.out.println("Hello World Server main: ");
             ex.printStackTrace();
-        }
-        
-        new TelaServidor();
-          
+        }                
     }
 }

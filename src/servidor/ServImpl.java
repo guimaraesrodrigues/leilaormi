@@ -12,7 +12,7 @@ import rmi.InterfaceServ;
 
 public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     
-    private ArrayList<Leilao> lista_leiloes;
+    public ArrayList<Leilao> lista_leiloes;
     
     public ServImpl() throws RemoteException {
         this.lista_leiloes = new ArrayList<Leilao>();
