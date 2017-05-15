@@ -2,7 +2,10 @@ package servidor;
 
 
 import java.io.Serializable;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rmi.InterfaceCli;
 
 
@@ -13,6 +16,8 @@ public class Leilao implements Serializable{
     private float preco;
     private float tempofinal;
     private InterfaceCli cliente;
+
+    private String nome_usuario;
     //private boolean ativo; sera que precisa dessa flag?
     public ArrayList<Lance> lances;
     
@@ -23,6 +28,11 @@ public class Leilao implements Serializable{
         this.preco = preco;
         this.tempofinal= tempofinal;
         this.cliente = cliente;
+        try {
+            this.nome_usuario = cliente.getNome_usuario();
+        } catch (RemoteException ex) {
+            Logger.getLogger(Leilao.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.lances = new ArrayList<Lance>();
     }
     
@@ -64,5 +74,12 @@ public class Leilao implements Serializable{
 
     public void setTempofinal(float tempofinal) {
         this.tempofinal = tempofinal;
+    }
+    public String getNome_usuario() {
+        return nome_usuario;
+    }
+
+    public void setNome_usuario(String nome_usuario) {
+        this.nome_usuario = nome_usuario;
     }
 }

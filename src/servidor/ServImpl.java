@@ -64,4 +64,20 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     
     }
     
+    public void cancelarLeilao(String codigo) throws RemoteException{
+        for (Leilao l : lista_leiloes){
+            if(l.getCodigo().equals(codigo)){
+                for (Lance lance : l.lances){
+                    lance.getUsuario();
+                    l.setTempofinal(0);
+                    lance.getCliente().leilaoEncerrado("Usuario vencedor: " + l.lances.get(l.lances.size()).getUsuario() +
+                            " Valor: "+ l.lances.get(l.lances.size()).getLance());
+                    
+                }
+                lista_leiloes.remove(l);
+                return;
+            }
+        }
+    }
+    
 }

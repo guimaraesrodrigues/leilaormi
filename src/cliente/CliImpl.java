@@ -8,6 +8,7 @@ package cliente;
 import java.rmi.RemoteException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import javax.swing.JOptionPane;
 import rmi.InterfaceCli;
 import rmi.InterfaceServ;
 
@@ -35,4 +36,7 @@ public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
         return nome_usuario;
     }
     
+    public void leilaoEncerrado(String mensagem) throws RemoteException{
+        JOptionPane.showMessageDialog(null, mensagem);
+    }
 }
