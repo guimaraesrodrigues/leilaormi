@@ -281,7 +281,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if(this.listaMeusLeiloes.getSelectedValue() == null)
             JOptionPane.showMessageDialog(null, "Selecione um produto primeiro!");
         else{
-            System.out.println(""+ this.listaMeusLeiloes.getSelectedValue());
+            //System.out.println(""+ this.listaMeusLeiloes.getSelectedValue().substring(0, 5));
+            try {
+                server.cancelarLeilao(listaMeusLeiloes.getSelectedValue().substring(0, 5));
+            } catch (RemoteException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
             
     }//GEN-LAST:event_botaoCancelarLeilaoActionPerformed

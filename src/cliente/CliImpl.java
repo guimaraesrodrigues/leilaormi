@@ -5,9 +5,14 @@
  */
 package cliente;
 
+import java.awt.Frame;
 import java.rmi.RemoteException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import rmi.InterfaceCli;
 import rmi.InterfaceServ;
@@ -36,7 +41,19 @@ public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
         return nome_usuario;
     }
     
-    public void leilaoEncerrado(String mensagem) throws RemoteException{
-        JOptionPane.showMessageDialog(null, mensagem);
+    public void leilaoEncerrado(String mensagem, String nome_produto) throws RemoteException{
+        System.out.println("msg: " + mensagem);
+        //JOptionPane dialog = new JOptionPane(mensagem,  JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION );
+        //JOptionPane.showMessageDialog(null, mensagem, "Leilão encerrado!", JOptionPane.INFORMATION_MESSAGE);
+        //JDialog dialog = new JDialog(new Frame() , "Leilão encerrado!", true);
+        //dialog.setTitle();
+        //dialog.setVisible(true);
+         Thread t = new Thread(new Runnable(){
+        public void run(){
+            JOptionPane.showMessageDialog(null, mensagem, "Leilão do produo "+nome_produto + " encerrado!", JOptionPane.INFORMATION_MESSAGE);
+        }
+        });
+        t.start();
+        
     }
 }

@@ -54,7 +54,7 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
                 lance = new Lance(cliente, valor);
                 l.lances.add(lance);
                 l.setValor(valor);
-                return "Lance adicinado com sucesso!";
+                return "Lance adicionado com sucesso!";
             }
         }
         return "";
@@ -70,12 +70,12 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
                 for (Lance lance : l.lances){
                     lance.getUsuario();
                     l.setTempofinal(0);
-                    lance.getCliente().leilaoEncerrado("Usuario vencedor: " + l.lances.get(l.lances.size()).getUsuario() +
-                            " Valor: "+ l.lances.get(l.lances.size()).getLance());
-                    
+                    lance.getCliente().leilaoEncerrado("\nUsuario vencedor: " + l.lances.get(l.lances.size()-1).getUsuario() +
+                                                       "\nValor: "+ l.lances.get(l.lances.size()-1).getLance(), l.getNome());
+                    lista_leiloes.remove(l);
+                    return;                   
                 }
-                lista_leiloes.remove(l);
-                return;
+                
             }
         }
     }
