@@ -4,7 +4,6 @@ package servidor;
 import java.io.Serializable;
 import java.util.ArrayList;
 import rmi.InterfaceCli;
-import rmi.Lance;
 
 
 public class Leilao implements Serializable{

@@ -195,11 +195,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButtonAtualiza, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jButtonLance, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextLance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonAtualiza, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextLance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(botaoNovoProduto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -227,17 +228,22 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         valor_lance = Float.valueOf(jTextLance.getText());
         
+        if(jTableLeiloes.getSelectedRow() == -1){
+            JOptionPane.showMessageDialog(null, "Selecione um produto!");
+            return;
+        }
+        
         try {
             
-            boolean op = server.registarLance("" + modeloTable.getValueAt(jTableLeiloes.getSelectedRow(), 0), valor_lance, this.client);
-            if(op)
-                System.out.println("Lance efetuado!");
-                
+            String msg_retorno = server.registarLance("" + modeloTable.getValueAt(jTableLeiloes.getSelectedRow(), 0), valor_lance, this.client);
+            
+            JOptionPane.showMessageDialog(null, msg_retorno);
+            
+            this.atualizaJtable();                
             
             } catch (RemoteException ex) {
             Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.atualizaJtable();
+        }      
         
     }//GEN-LAST:event_jButtonLanceActionPerformed
 

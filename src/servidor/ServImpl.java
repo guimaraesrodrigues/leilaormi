@@ -8,9 +8,10 @@ import servidor.Leilao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.TimerTask;
+import javax.swing.Timer;
 import rmi.InterfaceCli;
 import rmi.InterfaceServ;
-import rmi.Lance;
 
 public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     
@@ -38,17 +39,29 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
          return this.lista_leiloes;
     }
     
-    public boolean registarLance(String codigo, float valor, InterfaceCli cliente) throws RemoteException{
+    public String registarLance(String codigo, float valor, InterfaceCli cliente) throws RemoteException{
         Lance lance;
+        
+        
         for (Leilao l : lista_leiloes){
-            if(l.getCodigo().equals(codigo) && l.getValor() < valor){
+            if(l.getCodigo().equals(codigo)){
+                
+                if(l.getTempofinal() == 0)
+                    return "Lance não adicionado. O Leilão já foi encerrado!";
+                else if(l.getValor() >= valor)
+                    return "Lance não adicionado. Valor do lance menor do que o permitido!";
+                
                 lance = new Lance(cliente, valor);
                 l.lances.add(lance);
                 l.setValor(valor);
-                return true;
-            }                                       
+                return "Lance adicinado com sucesso!";
+            }
         }
-        return false;
+        return "";
+    }
+    
+    private void temporizador(){        
+    
     }
     
 }

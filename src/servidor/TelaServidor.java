@@ -3,7 +3,6 @@ package servidor;
 import servidor.Leilao;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
-import rmi.Lance;
 
 public class TelaServidor extends javax.swing.JFrame {
     ServImpl servimpl;

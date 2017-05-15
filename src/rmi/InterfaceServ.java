@@ -15,5 +15,5 @@ public interface InterfaceServ extends Remote  {
     public void chamar(String nome, InterfaceCli cliente)throws RemoteException;
     public void cadastrarLeilao(String nome_produto, String descricao, float preco, float tempo, InterfaceCli cliente) throws RemoteException;
     public ArrayList<Leilao> leiloes_ativos() throws RemoteException;
-    public boolean registarLance(String codigo, float valor, InterfaceCli cliente) throws RemoteException;
+    public String registarLance(String codigo, float valor, InterfaceCli cliente) throws RemoteException;
 }

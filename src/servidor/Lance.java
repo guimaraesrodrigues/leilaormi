@@ -1,6 +1,7 @@
-package rmi;
+package servidor;
 
 import java.io.Serializable;
+import rmi.InterfaceCli;
 
 public class Lance implements Serializable{
 
