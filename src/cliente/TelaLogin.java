@@ -45,7 +45,7 @@ public class TelaLogin extends javax.swing.JFrame {
         labelUsuario = new javax.swing.JLabel();
         campoUsuario = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        buttonLogin = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,10 +63,10 @@ public class TelaLogin extends javax.swing.JFrame {
         jLabel1.setText("Leilão TOPzera!");
         jLabel1.setToolTipText("");
 
-        jButton1.setText("ENTRAR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonLogin.setText("ENTRAR");
+        buttonLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonLoginActionPerformed(evt);
             }
         });
 
@@ -82,7 +82,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
+                            .addComponent(buttonLogin)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(labelUsuario)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -99,7 +99,7 @@ public class TelaLogin extends javax.swing.JFrame {
                     .addComponent(labelUsuario)
                     .addComponent(campoUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(41, 41, 41)
-                .addComponent(jButton1)
+                .addComponent(buttonLogin)
                 .addContainerGap(31, Short.MAX_VALUE))
         );
 
@@ -110,23 +110,23 @@ public class TelaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_campoUsuarioActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonLoginActionPerformed
         this.nome = campoUsuario.getText();
         try {
-            client.setNome(nome);
+            client.setNome_usuario(nome);
             TelaPrincipal tp = new TelaPrincipal(server,client);
         } catch (RemoteException ex) {
             Logger.getLogger(TelaLogin.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonLoginActionPerformed
 
     /**
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton buttonLogin;
     private javax.swing.JTextField campoUsuario;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labelUsuario;
     // End of variables declaration//GEN-END:variables

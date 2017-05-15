@@ -20,8 +20,8 @@ public class TelaNovoProduto extends javax.swing.JFrame {
     public TelaNovoProduto(InterfaceServ server, InterfaceCli cliente) {
         this.server = server;
         this.cliente = cliente;
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        //this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         initComponents();
         this.setVisible(true);
      
@@ -174,7 +174,7 @@ public class TelaNovoProduto extends javax.swing.JFrame {
     private void botaoOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoOKActionPerformed
         try{
             
-            server.cadastrarLeilao("colocar cod aqui", prod.getText(), descricao.getText(),
+            server.cadastrarLeilao(prod.getText(), descricao.getText(),
                 Float.parseFloat(valor.getText()), Float.parseFloat(tempo.getText()), cliente);
             
         }catch (Exception ex) {
