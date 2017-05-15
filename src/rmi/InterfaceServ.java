@@ -5,10 +5,10 @@
  */
 package rmi;
 
-import servidor.Leilao;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import servidor.Leilao;
 
 
 public interface InterfaceServ extends Remote  {

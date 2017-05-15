@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package servidor;
+import servidor.Leilao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
@@ -33,9 +34,13 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
         }
         
     }
-    
+
     public ArrayList<Leilao> leiloes_ativos() throws RemoteException {
          return this.lista_leiloes;
+    }
+    
+     public void registra_lance() throws RemoteException {
+         //
     }
     
 }

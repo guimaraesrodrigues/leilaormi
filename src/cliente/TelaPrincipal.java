@@ -7,11 +7,14 @@ package cliente;
 
 import java.awt.HeadlessException;
 import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 import rmi.InterfaceCli;
 import rmi.InterfaceServ;
 import servidor.Leilao;
+
 
 /**
  *
@@ -21,6 +24,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     String user;
     InterfaceCli client;
     InterfaceServ server;
+    DefaultListModel listaLeiloes = new DefaultListModel();
 
     public TelaPrincipal() throws HeadlessException {
     }
@@ -29,7 +33,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal(InterfaceServ server, InterfaceCli client) throws RemoteException {
         this.client = client;
-        //this.user = client.getNome();
+       // this.user = client.getNome();
         this.server = server;
         initComponents();
         setVisible(true);
@@ -92,7 +96,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        jButton2.setText("Atualizar");
+        jButton2.setText("ATUALIZAR LEILÕES");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -117,7 +121,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
+                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(botaoNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -128,10 +134,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(tituloMeusLances)
-                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addGap(66, 66, 66))))))
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,9 +155,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                     .addComponent(jScrollPane4))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(botaoNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE)
-                    .addComponent(jButton2))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(botaoNovoProduto, javax.swing.GroupLayout.DEFAULT_SIZE, 41, Short.MAX_VALUE))
                 .addContainerGap())
         );
 
@@ -172,23 +175,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_botaoNovoProdutoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-         
-        try{
-        if(this.server.leiloes_ativos().isEmpty())
-            JOptionPane.showMessageDialog(null, "A lista de leiloes esta vazia!");
-        else{
-            DefaultListModel dados = new DefaultListModel();        
-            for(Leilao l : server.leiloes_ativos()){
-                dados.addElement("Produto: " + l.getNome());
-            }
-            listaUltimosLeiloes.setModel(dados);
+        try {
+            // TODO add your handling code here:
+            atualizaLeiloes();
+        } catch (RemoteException ex) {
+            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        }catch (Exception ex) {
-            System.out.println("Erro ao listar os produtos!");
-            ex.printStackTrace();
-        }       
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    public void atualizaLeiloes() throws RemoteException{
+        listaLeiloes.clear();
+        for(Leilao p : server.leiloes_ativos()){
+            String s = "COD: "+ p.getCodigo()+" Produto: "+p.getNome()+" Desc.: "+p.getDescricao()+" R$: "+ p.getValor();
+            //TIRAR OS COMENTÁRIOS A SEGUIR PARA FAZER A VERIFICAÇÃO DO CLIENTE
+            //if(!p.getLeiloeiro() == user.getNome){
+                listaLeiloes.addElement(s);
+                listaUltimosLeiloes.setModel(listaLeiloes);
+            //}
+        }
+    }
     /**
      * @param args the command line arguments
      */

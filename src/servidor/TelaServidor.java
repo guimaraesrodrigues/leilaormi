@@ -1,5 +1,6 @@
 package servidor;
    
+import servidor.Leilao;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 

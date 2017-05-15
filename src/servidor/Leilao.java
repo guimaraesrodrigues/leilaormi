@@ -1,12 +1,12 @@
 package servidor;
-import java.io.Serializable;
 
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import rmi.InterfaceCli;
-import rmi.InterfaceCli;
 
 
-public class Leilao implements Serializable  {
+public class Leilao implements Serializable{
     private String codigo;
     private String nome_prod;
     private String descricao;    
@@ -16,7 +16,7 @@ public class Leilao implements Serializable  {
     //private boolean ativo; sera que precisa dessa flag?
     //private ArrayList<Lance> lances; sera que precisamos de uma lista de lances para esse leilao??
     
-    public Leilao (String codigo, String nome_prod, String descr, float preco, float tempofinal, InterfaceCli cliente) {
+    public Leilao(String codigo, String nome_prod, String descr, float preco, float tempofinal, InterfaceCli cliente){
         this.codigo = codigo;
         this.nome_prod = nome_prod;
         this.descricao = descr;
