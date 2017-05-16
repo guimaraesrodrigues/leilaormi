@@ -74,8 +74,7 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
                                                        "\nValor: "+ l.lances.get(l.lances.size()-1).getLance(), l.getNome());
                     lista_leiloes.remove(l);
                     return;                   
-                }
-                
+                }                
             }
         }
     }
