@@ -17,6 +17,7 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     
     public ArrayList<Leilao> lista_leiloes;
     private int contador_leiloes;
+    public static Object lock;
     
     public ServImpl() throws RemoteException {
         this.lista_leiloes = new ArrayList<Leilao>();
@@ -43,7 +44,7 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     public String registarLance(String codigo, float valor, InterfaceCli cliente) throws RemoteException{
         Lance novo_lance;
         
-        
+       synchronized(lock) {
         for (Leilao l : lista_leiloes){
             if(l.getCodigo().equals(codigo)){
                 
@@ -62,6 +63,7 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
                 return "Lance adicionado com sucesso!";
             }
         }
+       }
         return "";
     }
     /** 

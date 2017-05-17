@@ -196,8 +196,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel4)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(149, 149, 149)
+                                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 524, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(buttonMeusLances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())))
         );
@@ -293,10 +293,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             return;
         }
         try {
-            
+            synchronized(server.lock ){
             String msg_retorno = server.registarLance("" + modeloTable.getValueAt(jTableLeiloes.getSelectedRow(), 0), valor_lance, this.client);
             this.statusLabel.setText(msg_retorno);          
-            
+            }
             this.atualizaJtable();                
             
             } catch (RemoteException ex) {

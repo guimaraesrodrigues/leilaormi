@@ -13,6 +13,12 @@ import servidor.Leilao;
 
 
 public interface InterfaceServ extends Remote  {
+
+    /**
+     *
+     */
+    public Object lock= new Object();
+    
     public void chamar(String nome, InterfaceCli cliente)throws RemoteException;
     public void cadastrarLeilao(String nome_produto, String descricao, float preco, int tempo, InterfaceCli cliente) throws RemoteException;
     public ArrayList<Leilao> leiloes_ativos() throws RemoteException;
