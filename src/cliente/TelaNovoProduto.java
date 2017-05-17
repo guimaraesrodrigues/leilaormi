@@ -61,7 +61,7 @@ public class TelaNovoProduto extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Tempo(min):");
+        jLabel4.setText("Tempo(seg):");
 
         tempo.setToolTipText("O tempo total do seu leilão em minutos");
         tempo.addActionListener(new java.awt.event.ActionListener() {
