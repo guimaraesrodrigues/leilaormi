@@ -64,7 +64,10 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
         }
         return "";
     }
-        
+    /** 
+     Este método cancela o leilao de acordo com o seu codigo
+     percorrendo todos os lances dados pelos usuarios e notificando todos sobre o encerramento
+     **/
     public void cancelarLeilao(String codigo) throws RemoteException{
         for (Leilao l : lista_leiloes){
             if(l.getCodigo().equals(codigo)){
@@ -79,22 +82,39 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
             }
         }
     }
+    //esse método cria uma thread para executar o cancelemento de um leilao de acordo com o seu tempo de duração
     private void temporizador(String codigo, int tempo){
         new java.util.Timer().schedule( 
         new java.util.TimerTask() {
             @Override
             public void run() {
                 try {
-                    cancelarLeilao(codigo);
                     System.out.println("ESGOTOU O TEMPO! " + codigo);
+                    for(Leilao l : lista_leiloes)//buscamos pelo leilao na lista de leiloes
+                        if(l.getCodigo().equals(codigo) && l.getTempofinal() != 0)//se ele nao foi cancelado pelo usuario, invocamos o metodo cancerlarLeilao
+                            cancelarLeilao(codigo);                    
                 } catch (RemoteException ex) {
                     Logger.getLogger(ServImpl.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 
             }
         }, 
-        tempo*1000 
+        tempo*1000 //multiplcamos por 1000 pois a entrada é em segundos e a contagem ocorre em milisegundos
         );
+    }
+    /**
+     * Método para listar lances de um usuário
+     **/
+    public ArrayList<Lance> listarLances(String usuario, String cod_prod) throws RemoteException{
+        ArrayList<Lance> lista_lances = new ArrayList<Lance>();
+        
+        for (Leilao leilao : this.lista_leiloes){
+            if(leilao.getCodigo().equals(cod_prod))
+                for(Lance lance : leilao.lances)
+                    lista_lances.add(lance);            
+        }
+        
+        return lista_lances;
     }
     
 }

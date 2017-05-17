@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cliente;
 
 import java.awt.HeadlessException;
@@ -16,11 +11,6 @@ import rmi.InterfaceCli;
 import rmi.InterfaceServ;
 import servidor.Leilao;
 
-
-/**
- *
- * @author Guilherme
- */
 public class TelaPrincipal extends javax.swing.JFrame {
     String user;
     InterfaceCli client;
@@ -58,7 +48,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         usuario = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listaMeusLeiloes = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
+        jButtonSair = new javax.swing.JButton();
         botaoNovoProduto = new javax.swing.JButton();
         jButtonAtualiza = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -69,6 +59,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         botaoCancelarLeilao = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         statusLabel = new javax.swing.JLabel();
+        buttonMeusLances = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,10 +74,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(listaMeusLeiloes);
 
-        jButton1.setText("SAIR");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButtonSair.setText("SAIR");
+        jButtonSair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButtonSairActionPerformed(evt);
             }
         });
 
@@ -154,6 +145,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         statusLabel.setText("status");
 
+        buttonMeusLances.setText("Meus Lances");
+        buttonMeusLances.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonMeusLancesActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -163,7 +161,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jButton1))
+                        .addComponent(jButtonSair))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -194,25 +192,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                         .addGap(3, 3, 3)
                                         .addComponent(jTextLance, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(jButtonLance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(statusLabel)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                                        .addComponent(jButtonLance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(statusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 387, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(149, 149, 149)
+                                .addComponent(buttonMeusLances, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addContainerGap()
+                        .addComponent(jButtonSair)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(usuario))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(3, 3, 3)
-                        .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)))
+                        .addComponent(titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(TituloMeusLeiloes)
@@ -233,20 +233,39 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(botaoCancelarLeilao, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonAtualiza, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
-                    .addComponent(statusLabel))
-                .addGap(6, 6, 6))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(buttonMeusLances)
+                        .addGap(20, 20, 20))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                            .addComponent(statusLabel))
+                        .addContainerGap())))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        this.setVisible(false);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButtonSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSairActionPerformed
+        
+        Object item;
+        if(this.listaMeusLeiloes.getSelectedValue() != null){            
+            try {
+                int size = listaMeusLeiloes.getModel().getSize(); 
+                // Get all item objects
+                for (int i = 0; i < size; i++){
+                    item = listaMeusLeiloes.getModel().getElementAt(i);
+                    server.cancelarLeilao(new String(item.toString().substring(0, 5)));
+                }
+            } catch (RemoteException ex) {
+                Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }        
+        System.exit(0);        
+    }//GEN-LAST:event_jButtonSairActionPerformed
 
     private void botaoNovoProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoNovoProdutoActionPerformed
         // TODO add your handling code here:
@@ -296,7 +315,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void botaoCancelarLeilaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botaoCancelarLeilaoActionPerformed
         if(this.listaMeusLeiloes.getSelectedValue() == null)
-            JOptionPane.showMessageDialog(null, "Selecione um produto primeiro!");
+            this.statusLabel.setText("Selecione um produto primeiro!");            
         else{
             
             try {
@@ -307,6 +326,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
             
     }//GEN-LAST:event_botaoCancelarLeilaoActionPerformed
+
+    private void buttonMeusLancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonMeusLancesActionPerformed
+        if(jTableLeiloes.getSelectedRow() != -1)
+            new TelaLances(this.server, this.user, new String(""+modeloTable.getValueAt(jTableLeiloes.getSelectedRow(), 0)));
+        else
+            this.statusLabel.setText("Selecione um produto primeiro!");
+    }//GEN-LAST:event_buttonMeusLancesActionPerformed
 
     /*TODO: Reescrever esse método para atualizar meus leiloes*/
     public void atualizaMeusLeiloes(){
@@ -337,20 +363,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
        
     }
-    
-
-    
-    
-   
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel TituloMeusLeiloes;
     private javax.swing.JButton botaoCancelarLeilao;
     private javax.swing.JButton botaoNovoProduto;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton buttonMeusLances;
     private javax.swing.JButton jButtonAtualiza;
     private javax.swing.JButton jButtonLance;
+    private javax.swing.JButton jButtonSair;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
