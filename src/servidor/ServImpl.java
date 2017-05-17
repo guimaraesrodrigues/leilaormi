@@ -15,10 +15,11 @@ import rmi.InterfaceServ;
 
 public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     
-    public ArrayList<Leilao> lista_leiloes;
-    private int contador_leiloes;
+    public ArrayList<Leilao> lista_leiloes;//lista para guardar os leiloes dos clientes
+    private int contador_leiloes;//contador utilizado para gerar codigo do produto
     public static Object lock;
     
+    //O construtor instancia a lista de leiloes e inicializa o contador
     public ServImpl() throws RemoteException {
         this.lista_leiloes = new ArrayList<Leilao>();
         this.contador_leiloes = 0;
@@ -27,44 +28,58 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     public void chamar(String nome, InterfaceCli cliente) throws RemoteException  {
         cliente.echo(nome+" (serv)");
     }
-
+    
+    /**
+     * Esse metodo recebe os dados do leilao, insere na lista de leiloes
+     * e inicializa o temporizador com o tempo de duracao para o leilao
+     **/
     public void cadastrarLeilao(String nome_produto, String descricao, float preco, int tempo, InterfaceCli cliente) throws RemoteException {
         
+        //chamamos um metodo remoto para obter o nome do usuario
+        // e criamos o codigo do produto de acordo com o nome do usuario e contador de leiloes
         String cod_produto = (cliente.getNome_usuario().substring(0, 3) + "_"  + contador_leiloes);
         Leilao novo_leilao = new Leilao(cod_produto, nome_produto, descricao, preco, tempo, cliente);
         this.lista_leiloes.add(novo_leilao);
-        contador_leiloes++;
-        this.temporizador(cod_produto, tempo);
+        contador_leiloes++;//incrementamos o contador para o proximo codigo de produto que venha a ser criado
+        this.temporizador(cod_produto, tempo);//invocamos o metodo que inicia a thread do temporizador
     }
-
+    
+    //Metodo simples para retornar a lista de leiloes do sistema
     public ArrayList<Leilao> leiloes_ativos() throws RemoteException {
          return this.lista_leiloes;
     }
     
-    public String registarLance(String codigo, float valor, InterfaceCli cliente) throws RemoteException{
-        Lance novo_lance;
-        
-       synchronized(lock) {
+    /**
+     * Este metodo registra o lance de um cliente em lista de lances presentes em cada objeto Leilao
+     * As infos registradas sao o codigo do produto, valor do lance, e referencia do cliente que enviou o lance
+     **/
+    public synchronized String registarLance(String codigo, float valor, InterfaceCli cliente) throws RemoteException{
+        Lance novo_lance;        
+       
+        //buscamos pelo leilao de acordo com o codigo do produto
         for (Leilao l : lista_leiloes){
             if(l.getCodigo().equals(codigo)){
-                
+                //se o leilao nao foi encerrado retornamos uma mensagem para o cliente
                 if(l.getTempofinal() == 0)
                     return "Lance não adicionado. O Leilão já foi encerrado!";
+                //se o lance é menor do que o permitido retornamos uma mensagem para o cliente
                 else if(l.getValor() >= valor)
                     return "Lance não adicionado. Valor do lance menor do que o permitido!";
                 
                 novo_lance = new Lance(cliente, valor);
-                l.lances.add(novo_lance);
+                l.lances.add(novo_lance);//adicionamos o novo lance na lista de lance do leilao corrente
                 l.setValor(valor);
+                
+                //percorremos a lista de lances e invocamos de todos os clientes registrados
+                //um metodo para notificar sobre o novo lance que foi registrado
                 for (Lance lance : l.lances){
                     //if(!lance.equals(novo_lance))                       
                         lance.getCliente().novoLance("Valor do lance: " + l.getValor(), l.getNome());
                 }
-                return "Lance adicionado com sucesso!";
+                return "Lance adicionado com sucesso!";//retornamos uma mensagem de sucesso
             }
-        }
        }
-        return "";
+        return "Leilao não encontrado :(";
     }
     /** 
      Este método cancela o leilao de acordo com o seu codigo
@@ -73,14 +88,13 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     public void cancelarLeilao(String codigo) throws RemoteException{
         for (Leilao l : lista_leiloes){
             if(l.getCodigo().equals(codigo)){
-                for (Lance lance : l.lances){
-                    lance.getUsuario();
-                    l.setTempofinal(0);
+                l.setTempofinal(0);//setamos o tempo do leilao para zero para indicar que o leilao encerrou
+                for (Lance lance : l.lances){                                        
                     lance.getCliente().leilaoEncerrado("\nUsuario vencedor: " + l.lances.get(l.lances.size()-1).getUsuario() +
                                                        "\nValor: "+ l.lances.get(l.lances.size()-1).getLance(), l.getNome());
-                    //lista_leiloes.remove(l);
-                    return;                   
-                }                
+                    //lista_leiloes.remove(l);                                      
+                }
+                return;
             }
         }
     }
@@ -105,15 +119,15 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
         );
     }
     /**
-     * Método para listar lances de um usuário
+     * Método para listar lances de um usuário em um leilao selecionado
      **/
     public ArrayList<Lance> listarLances(String usuario, String cod_prod) throws RemoteException{
         ArrayList<Lance> lista_lances = new ArrayList<Lance>();
         
         for (Leilao leilao : this.lista_leiloes){
-            if(leilao.getCodigo().equals(cod_prod))
+            if(leilao.getCodigo().equals(cod_prod))//se o leilao é o requerido pelo cliente
                 for(Lance lance : leilao.lances)
-                    lista_lances.add(lance);            
+                    lista_lances.add(lance);//adicionamos o lance na lista que sera retornada            
         }
         
         return lista_lances;

@@ -1,18 +1,7 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cliente;
 
-import java.awt.Frame;
-import java.rmi.RemoteException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import rmi.InterfaceCli;
 import rmi.InterfaceServ;
@@ -20,8 +9,9 @@ import rmi.InterfaceServ;
 public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
 
     InterfaceServ server;    
-    private String nome_usuario;   
+    private String nome_usuario;//um nome de usuario para identificar o cliente
     
+    //construtor recebe a referencia de objeto remoto
     public CliImpl(InterfaceServ server) throws RemoteException
     {   
         this.server = server;        
@@ -31,7 +21,9 @@ public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
         System.out.println("Cliente recebeu: "+s);
         
     }
-    
+    /**
+     * Getter and setter para o nome do usuario
+     **/
     public void setNome_usuario(String nome)throws RemoteException{
         this.nome_usuario = nome;
     }    
@@ -40,6 +32,9 @@ public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
         return nome_usuario;
     }
     
+     /**
+      * metodo remoto que notifica o cliente sobre o encerramento do leilao
+      **/
     public void leilaoEncerrado(String mensagem, String nome_produto) throws RemoteException{
         
         Thread t = new Thread(new Runnable(){
@@ -49,7 +44,9 @@ public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
         });
         t.start();        
     }
-    
+    /**
+     * método remoto para notificar o cliente sobre um novo lance em um produto que ele esta interessado
+     **/
     public void novoLance(String mensagem, String nome_produto) throws RemoteException{
         System.out.println("msg: " + mensagem);
    
