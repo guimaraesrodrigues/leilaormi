@@ -41,7 +41,7 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
     }
     
     public String registarLance(String codigo, float valor, InterfaceCli cliente) throws RemoteException{
-        Lance lance;
+        Lance novo_lance;
         
         
         for (Leilao l : lista_leiloes){
@@ -52,9 +52,13 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
                 else if(l.getValor() >= valor)
                     return "Lance não adicionado. Valor do lance menor do que o permitido!";
                 
-                lance = new Lance(cliente, valor);
-                l.lances.add(lance);
+                novo_lance = new Lance(cliente, valor);
+                l.lances.add(novo_lance);
                 l.setValor(valor);
+                for (Lance lance : l.lances){
+                    //if(!lance.equals(novo_lance))                       
+                        lance.getCliente().novoLance("Valor do lance: " + l.getValor(), l.getNome());
+                }
                 return "Lance adicionado com sucesso!";
             }
         }

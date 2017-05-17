@@ -39,6 +39,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         this.server = server;
         initComponents();
         modeloTable = (DefaultTableModel)jTableLeiloes.getModel();
+        this.statusLabel.setText("Pronto!");
         setVisible(true);
     }
 
@@ -66,6 +67,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jTextLance = new javax.swing.JTextField();
         botaoCancelarLeilao = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -147,6 +150,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel4.setText("Status: ");
+
+        statusLabel.setText("status");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -176,7 +183,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                     .addComponent(botaoCancelarLeilao, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(30, 30, 30)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 551, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(TituloMeusLeiloes)
                                         .addGap(0, 0, Short.MAX_VALUE))
@@ -188,7 +195,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                         .addComponent(jTextLance, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(jButtonLance, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
-                        .addContainerGap())))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(statusLabel)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +233,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(botaoCancelarLeilao, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jButtonAtualiza, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 12, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
+                    .addComponent(statusLabel))
+                .addGap(6, 6, 6))
         );
 
         pack();
@@ -260,8 +276,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         try {
             
             String msg_retorno = server.registarLance("" + modeloTable.getValueAt(jTableLeiloes.getSelectedRow(), 0), valor_lance, this.client);
-            
-            JOptionPane.showMessageDialog(null, msg_retorno);
+            this.statusLabel.setText(msg_retorno);          
             
             this.atualizaJtable();                
             
@@ -283,7 +298,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if(this.listaMeusLeiloes.getSelectedValue() == null)
             JOptionPane.showMessageDialog(null, "Selecione um produto primeiro!");
         else{
-            //System.out.println(""+ this.listaMeusLeiloes.getSelectedValue().substring(0, 5));
+            
             try {
                 server.cancelarLeilao(listaMeusLeiloes.getSelectedValue().substring(0, 5));
             } catch (RemoteException ex) {
@@ -323,6 +338,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
        
     }
     
+
+    
     
    
     
@@ -335,11 +352,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton jButtonAtualiza;
     private javax.swing.JButton jButtonLance;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTableLeiloes;
     private javax.swing.JTextField jTextLance;
     private javax.swing.JList<String> listaMeusLeiloes;
+    private javax.swing.JLabel statusLabel;
     private javax.swing.JLabel titulo;
     private javax.swing.JLabel tituloUltimosLeiloes;
     private javax.swing.JLabel usuario;

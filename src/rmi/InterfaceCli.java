@@ -17,4 +17,5 @@ public interface InterfaceCli extends Remote{
     public void setNome_usuario(String nome) throws RemoteException;
     public String getNome_usuario() throws RemoteException;
     public void leilaoEncerrado(String mensagem, String nome_produto) throws RemoteException;
+    public void novoLance(String mensagem, String nome_produto) throws RemoteException;
 }

@@ -24,8 +24,7 @@ public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
     
     public CliImpl(InterfaceServ server) throws RemoteException
     {   
-        this.server = server;
-        server.chamar("cli hello", this);
+        this.server = server;        
     }
     
     public void echo(String s) throws RemoteException{
@@ -42,18 +41,24 @@ public class CliImpl extends UnicastRemoteObject  implements InterfaceCli{
     }
     
     public void leilaoEncerrado(String mensagem, String nome_produto) throws RemoteException{
-        System.out.println("msg: " + mensagem);
-        //JOptionPane dialog = new JOptionPane(mensagem,  JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION );
-        //JOptionPane.showMessageDialog(null, mensagem, "Leilão encerrado!", JOptionPane.INFORMATION_MESSAGE);
-        //JDialog dialog = new JDialog(new Frame() , "Leilão encerrado!", true);
-        //dialog.setTitle();
-        //dialog.setVisible(true);
-         Thread t = new Thread(new Runnable(){
+        
+        Thread t = new Thread(new Runnable(){
         public void run(){
             JOptionPane.showMessageDialog(null, mensagem, "Leilão do produo "+nome_produto + " encerrado!", JOptionPane.INFORMATION_MESSAGE);
         }
         });
-        t.start();
-        
+        t.start();        
     }
+    
+    public void novoLance(String mensagem, String nome_produto) throws RemoteException{
+        System.out.println("msg: " + mensagem);
+   
+        Thread t = new Thread(new Runnable(){
+        public void run(){
+            JOptionPane.showMessageDialog(null, mensagem, "Novo lance para o produto "+nome_produto, JOptionPane.INFORMATION_MESSAGE);
+        }
+        });
+        t.start();        
+    }
+    
 }

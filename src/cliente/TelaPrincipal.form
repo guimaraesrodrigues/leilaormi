@@ -54,7 +54,7 @@
                               </Group>
                               <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jScrollPane1" pref="551" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" max="32767" attributes="0"/>
                                   <Group type="102" attributes="0">
                                       <Component id="TituloMeusLeiloes" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
@@ -72,6 +72,12 @@
                           </Group>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="statusLabel" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
           </Group>
@@ -117,7 +123,12 @@
                       <Component id="jButtonAtualiza" alignment="3" min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="jLabel4" alignment="3" pref="19" max="32767" attributes="0"/>
+                  <Component id="statusLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="-2" pref="6" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -244,6 +255,16 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="botaoCancelarLeilaoActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel4">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Status: "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="statusLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="status"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
