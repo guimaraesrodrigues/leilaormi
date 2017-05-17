@@ -175,7 +175,7 @@ public class TelaNovoProduto extends javax.swing.JFrame {
         try{
             
             server.cadastrarLeilao(prod.getText(), descricao.getText(),
-                Float.parseFloat(valor.getText()), Float.parseFloat(tempo.getText()), cliente);
+                Float.parseFloat(valor.getText()), Integer.parseInt(tempo.getText()), cliente);
             
         }catch (Exception ex) {
             System.out.println("Erro ao cadatrar o produto!");

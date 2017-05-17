@@ -8,8 +8,8 @@ import servidor.Leilao;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
-import java.util.TimerTask;
-import javax.swing.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import rmi.InterfaceCli;
 import rmi.InterfaceServ;
 
@@ -27,12 +27,13 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
         cliente.echo(nome+" (serv)");
     }
 
-    public void cadastrarLeilao(String nome_produto, String descricao, float preco, float tempo, InterfaceCli cliente) throws RemoteException {
+    public void cadastrarLeilao(String nome_produto, String descricao, float preco, int tempo, InterfaceCli cliente) throws RemoteException {
         
         String cod_produto = (cliente.getNome_usuario().substring(0, 3) + "_"  + contador_leiloes);
         Leilao novo_leilao = new Leilao(cod_produto, nome_produto, descricao, preco, tempo, cliente);
         this.lista_leiloes.add(novo_leilao);
-        contador_leiloes++;           
+        contador_leiloes++;
+        this.temporizador(cod_produto, tempo);
     }
 
     public ArrayList<Leilao> leiloes_ativos() throws RemoteException {
@@ -59,11 +60,7 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
         }
         return "";
     }
-    
-    private void temporizador(){        
-    
-    }
-    
+        
     public void cancelarLeilao(String codigo) throws RemoteException{
         for (Leilao l : lista_leiloes){
             if(l.getCodigo().equals(codigo)){
@@ -77,6 +74,23 @@ public class ServImpl extends UnicastRemoteObject  implements InterfaceServ{
                 }                
             }
         }
+    }
+    private void temporizador(String codigo, int tempo){
+        new java.util.Timer().schedule( 
+        new java.util.TimerTask() {
+            @Override
+            public void run() {
+                try {
+                    cancelarLeilao(codigo);
+                    System.out.println("ESGOTOU O TEMPO! " + codigo);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(ServImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                
+            }
+        }, 
+        tempo*1000 
+);
     }
     
 }

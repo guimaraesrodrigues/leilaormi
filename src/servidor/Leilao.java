@@ -14,14 +14,14 @@ public class Leilao implements Serializable{
     private String nome_prod;
     private String descricao;    
     private float preco;
-    private float tempofinal;
+    private int tempofinal;
     private InterfaceCli cliente;
 
     private String nome_usuario;
     //private boolean ativo; sera que precisa dessa flag?
     public ArrayList<Lance> lances;
     
-    public Leilao(String codigo, String nome_prod, String descr, float preco, float tempofinal, InterfaceCli cliente){
+    public Leilao(String codigo, String nome_prod, String descr, float preco, int tempofinal, InterfaceCli cliente){
         this.codigo = codigo;
         this.nome_prod = nome_prod;
         this.descricao = descr;
@@ -68,11 +68,11 @@ public class Leilao implements Serializable{
         this.preco = precoin;
     }
 
-    public float getTempofinal() {
+    public int getTempofinal() {
         return tempofinal;
     }
 
-    public void setTempofinal(float tempofinal) {
+    public void setTempofinal(int tempofinal) {
         this.tempofinal = tempofinal;
     }
     public String getNome_usuario() {
